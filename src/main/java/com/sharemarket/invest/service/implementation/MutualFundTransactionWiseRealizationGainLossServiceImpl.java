@@ -22,6 +22,7 @@ public class MutualFundTransactionWiseRealizationGainLossServiceImpl implements 
     private final MutualFundReportDao mutualFundReportDao;
     @Override
     public MutualFundRealizeGainLossResponse getTransactionWiseRealizationGainLoss(SecuritiesRequest request) {
+
         List<MutualFundTransaction> list = mutualFundReportDao.findAllRequiredSecurities(request.getStartDate(), request.getEndDate(), request.getPortfolioIds(), request.getIsinList(), request.getCodeList());
 
         Map<String, List<MutualFundTransaction>> securityTransaction = mutualFundReportDao
@@ -32,7 +33,7 @@ public class MutualFundTransactionWiseRealizationGainLossServiceImpl implements 
                 .collect(Collectors.groupingBy(fund ->
                         getSecurityGroupKey(fund.getIsin(), fund.getCode())));
 
-        log.info("SecurityTransaction {}", securityTransaction.size());
+//log.info("SecurityTransaction {}", securityTransaction.size());
 
         Map<String, BigDecimal> securityClosePriceMap = getSecurityClosePriceMap(request.getIsinList(),
                 request.getCodeList(), request.getEndDate());
@@ -43,16 +44,7 @@ public class MutualFundTransactionWiseRealizationGainLossServiceImpl implements 
                         getPortfolioWiseList(longListEntry, securityClosePriceMap)).toList();
 
 
-        List<MutualFundRealizeGainLossResponse.HoldingSecurityDTO> holdingSecurities = securityTransaction
-                .entrySet()
-                .stream()
-                .map(entry -> getSecurityResponse(
-                        entry.getValue(),
-                        securityClosePriceMap.getOrDefault(entry.getKey(), BigDecimal.ZERO)
-                ))
-                .toList();
-
-        log.info("MutualFund holding securities count: {}", holdingSecurities.size());
+        log.info("MutualFund holding securities count: {}", portfolioDetails.size());
 
         return MutualFundRealizeGainLossResponse.builder()
                 .details(portfolioDetails)
