@@ -64,9 +64,7 @@ public class AccountServiceImpl implements AccountService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with ID");
         }
 
-        AccountResponse list = modelMapper.map(accountDetails, AccountResponse.class);
-        log.info("Account by id  {}", list.getAccountId());
-        return list;
+        return modelMapper.map(accountDetails, AccountResponse.class);
     }
 
     @Override
