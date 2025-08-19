@@ -50,12 +50,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountResponse> getAllAccount() {
         List<AccountDetails> allAccounts = accountsDao.findAllByStatus(1);
-        List<AccountResponse> accountsList = allAccounts.stream()
+        return allAccounts.stream()
                 .map(account -> modelMapper
                         .map(account, AccountResponse.class))
                 .collect(Collectors.toList());
-        log.info(" All accounts {} ", accountsList.size());
-        return accountsList;
     }
 
     @Override
