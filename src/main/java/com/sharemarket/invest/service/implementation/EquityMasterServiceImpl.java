@@ -93,9 +93,7 @@ public class EquityMasterServiceImpl implements EquityMasterService {
         if (!equityMasterDao.existsByEqIdAndStatus(id, 1)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "EQ ID NOT VALID");
         }
-        EquityMasterResponse equityMasterResponse = modelMapper.map(equityMasterDao.findById(id), EquityMasterResponse.class);
-        log.info("Equity Mater {}", equityMasterResponse.getEqId());
-        return equityMasterResponse;
+        return modelMapper.map(equityMasterDao.findById(id), EquityMasterResponse.class);
     }
 
     private record EquityMasterRecord(String code, String series, String isin, String company_name, String sector,
