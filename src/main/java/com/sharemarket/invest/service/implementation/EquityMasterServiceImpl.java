@@ -71,8 +71,7 @@ public class EquityMasterServiceImpl implements EquityMasterService {
                         .map(equityMaster, EquityMasterResponse.class))
                 .collect(Collectors.toList());
 
-        log.info("response : {}", responseListOfEquityMaster.size());
-
+log.info("Equity Mater {} ", responseListOfEquityMaster.size());
         return responseListOfEquityMaster;
     }
 
