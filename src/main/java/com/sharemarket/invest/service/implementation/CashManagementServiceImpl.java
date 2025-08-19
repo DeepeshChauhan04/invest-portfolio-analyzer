@@ -87,10 +87,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         //  CashManagementResponse response = modelMapper.map(cashManagementList, CashManagementResponse.class);
 
 
-        List<CashManagementResponse> response = cashManagementList.stream().map(cashManagement -> modelMapper.map(cashManagement, CashManagementResponse.class)).toList();
-
-        log.info("Cash Management {}", response.size());
-        return response;
+        return cashManagementList.stream().map(cashManagement -> modelMapper.map(cashManagement, CashManagementResponse.class)).toList();
 
     }
 }
