@@ -50,12 +50,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountResponse> getAllAccount() {
         List<AccountDetails> allAccounts = accountsDao.findAllByStatus(1);
-        List<AccountResponse> accountsList = allAccounts.stream()
+        return allAccounts.stream()
                 .map(account -> modelMapper
                         .map(account, AccountResponse.class))
                 .collect(Collectors.toList());
-        log.info(" All accounts {} ", accountsList.size());
-        return accountsList;
     }
 
     @Override
@@ -66,9 +64,7 @@ public class AccountServiceImpl implements AccountService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with ID");
         }
 
-        AccountResponse list = modelMapper.map(accountDetails, AccountResponse.class);
-        log.info("Account by id  {}", list.getAccountId());
-        return list;
+        return modelMapper.map(accountDetails, AccountResponse.class);
     }
 
     @Override
