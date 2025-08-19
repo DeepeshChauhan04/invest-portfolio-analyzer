@@ -106,7 +106,6 @@ public class AccountServiceImpl implements AccountService {
         accountList.setDefaultAccount(true);
         accountsDao.save(accountList);
 
-
         return "success";
     }
 }

@@ -38,16 +38,13 @@ public class UserServiceImpl implements UserService {
         User saveuser = userDao.save(models);
         return modelMapper.map(saveuser, UserResponse.class);
     }
-
     @Override
     public List<UserResponse> getAllUser() {
         List<User> userData = userDao.findAll();
-        List<UserResponse> responses = userData.stream()
+
+        return userData.stream()
                 .map(user -> modelMapper.map(user, UserResponse.class))
                 .collect(Collectors.toList());
-
-        log.info("user list : {}", responses.size());
-        return responses;
     }
 
     @Override
